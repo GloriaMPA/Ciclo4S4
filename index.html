@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="number" id="a" placeholder="Ingrese el valor de a">
+    <input type="number" id="b" placeholder="Ingrese el valor de b">
+    <input type="text" id="resultado">
+    <input type="button" value="Sumar" onclick="sumar()">
+
+    <script>
+        function sumar(){
+            let a = document.getElementById("a").value
+            let b = document.getElementById("b").value
+
+            fetch('/add', { //Le damos la ruta
+                method:'POST', //Le damos el metodo
+                headers:{'Content-type':'application/json', 'accept':'application/json'},
+                body:JSON.stringify({a:a, b:b}) //Convierte un objeto o valor en una cadena de texto json
+            })
+
+            .then(res => res.json()) //Le damos la respuesta
+            .then(res => {
+                document.getElementById('resultado').value = res.result
+            })
+        }
+    </script>
+</body>
+</html>
